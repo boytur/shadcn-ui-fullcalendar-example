@@ -40,11 +40,9 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const deleteEvent = (id: string) => {
-    events;
     setEvents((prevEvents) =>
-      prevEvents.filter((event) => event.id !== Number(id))
+      prevEvents.filter((event) => Number(event.id) !== Number(id))
     );
-    console.log(events);
   };
 
   return (

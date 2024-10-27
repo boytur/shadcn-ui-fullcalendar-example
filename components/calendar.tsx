@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 "use client";
 
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -103,19 +105,6 @@ export default function Calendar() {
         </AlertDialogContent>
       </AlertDialog>
     );
-
-    if (info.view.type == "dayGridMonth") {
-    } else {
-      return (
-        <div className="flex flex-col space-y-0 overflow-hidden min-h-full min-w-full rounded-md cursor-pointer outline-none">
-          <p className="wrap font-semibold text-xs text-gray-950">
-            {event.title}
-          </p>
-          <p className="flex text-gray-800 text-xs">{`${left} - ${right}`}</p>
-          <p className="flex text-gray-800 text-xs"></p>
-        </div>
-      );
-    }
   };
 
   const DayHeader = ({ info }: any) => {
@@ -188,7 +177,6 @@ export default function Calendar() {
             interactionPlugin,
             listPlugin
           ]}
-          aria-expanded={open}
           initialView="timeGridWeek"
           headerToolbar={false}
           slotMinTime={"08:00"}

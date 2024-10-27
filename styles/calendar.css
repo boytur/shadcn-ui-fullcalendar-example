@@ -19,6 +19,7 @@
 .fc tbody tr:last-child td:first-child {
   @apply rounded-bl-xl;
 }
+
 .fc tbody tr:last-child td:last-child {
   @apply rounded-br-xl;
 }

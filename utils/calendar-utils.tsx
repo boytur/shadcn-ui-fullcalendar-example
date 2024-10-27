@@ -64,7 +64,7 @@ export function handleYearChange(
 export function setView(
   calendarRef: calendarRef,
   viewName: string,
-  setCurrentView: Function
+  setCurrentView: any
 ) {
   const calendarApi = calendarRef.current!.getApi();
   setCurrentView(viewName);

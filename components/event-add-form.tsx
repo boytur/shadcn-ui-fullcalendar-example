@@ -82,7 +82,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
 
   async function onSubmit(data: EventAddFormValues) {
     const newEvent = {
-      id: events.length + 1,
+      id: String(events.length + 1),
       title: data.title,
       description: data.description,
       start: data.start,

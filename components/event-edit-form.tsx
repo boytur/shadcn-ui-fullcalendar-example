@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { PlusIcon, Text } from "lucide-react";
 import { HexColorPicker } from "react-colorful";
 import {
   AlertDialog,
@@ -73,7 +72,7 @@ export function EventEditForm({
   end,
   color
 }: EventEditFormProps) {
-  const { events, addEvent, deleteEvent } = useEvents();
+  const { addEvent, deleteEvent } = useEvents();
   const [eventEditOpen, setEventEditOpen] = useState(false);
 
   const { toast } = useToast();
@@ -91,7 +90,7 @@ export function EventEditForm({
       end: end,
       color: color
     });
-  }, [form, start, end]);
+  }, [form, id, title, description, start, end, color]);
 
   async function onSubmit(data: EventEditFormValues) {
     const newEvent = {
