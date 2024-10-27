@@ -1,0 +1,104 @@
+/* Creating rounded corners */
+
+.fc-scrollgrid {
+  @apply rounded-xl shadow-md;
+}
+
+.fc table {
+  @apply border-separate;
+}
+
+.fc thead th:first-child {
+  @apply rounded-tl-xl;
+}
+
+.fc thead th:last-child {
+  @apply rounded-tr-xl;
+}
+
+.fc tbody tr:last-child td:first-child {
+  @apply rounded-bl-xl;
+}
+.fc tbody tr:last-child td:last-child {
+  @apply rounded-br-xl;
+}
+
+/* Setting header size */
+
+.fc-col-header-cell-cushion {
+  @apply h-14;
+}
+
+/* Setting left time size */
+
+.fc-timegrid-slot-label-cushion {
+  @apply text-sm font-light;
+}
+
+/* Setting cell colors */
+
+td.fc-daygrid-day.fc-day {
+  @apply hover:bg-gray-200 !important;
+}
+
+td.fc-daygrid-day.fc-day.fc-day-today {
+  @apply bg-gray-100;
+}
+
+.fc-day-other {
+  background: #fafafb;
+}
+
+/* Styling event box */
+
+.fc-daygrid-day-frame {
+  @apply mx-1 !important;
+}
+
+.fc-daygrid-day-number {
+  @apply w-full h-10 !important;
+}
+
+.fc-event-main {
+  @apply ring-white overflow-hidden w-full pl-1.5 !important;
+}
+
+.fc-event {
+  @apply rounded-md border-none w-full !important;
+}
+
+/* 
+
+
+
+.element {
+  border-color: black;
+
+  background-color: rgb(174, 198, 228);
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event,
+.fc-timegrid-event.fc-event-mirror,
+.fc-timegrid-more-link {
+  box-shadow: 0 0 0 5px var(--fc-page-bg-color);
+}
+.fc-timegrid-event-harness > .fc-timegrid-event {
+  inset: 0px;
+
+  position: absolute;
+}
+a.fc-event,
+a.fc-event:hover {
+  text-decoration: none;
+}
+.fc-timegrid-event {
+  margin-bottom: 1px;
+}
+.fc-timegrid-event,
+.fc-timegrid-more-link {
+  border-radius: 3px;
+
+  font-size: var(--fc-small-font-size);
+}
+.fc-v-event {
+  @apply rounded-md px-0.5 border-none !important;
+} */
