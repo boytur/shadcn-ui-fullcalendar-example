@@ -1,5 +1,6 @@
 "use client";
 
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { calendarRef } from "./data";
 
 export function generateDaysInMonth(daysInMonth: number) {
@@ -8,7 +9,7 @@ export function generateDaysInMonth(daysInMonth: number) {
   for (let day = 1; day <= daysInMonth; day++) {
     daysArray.push({
       value: String(day),
-      label: String(day)
+      label: String(day),
     });
   }
 
@@ -54,7 +55,7 @@ export function handleMonthChange(
 export function handleYearChange(
   calendarRef: calendarRef,
   currentDate: Date,
-  e: any
+  e: ChangeEvent<HTMLInputElement>
 ) {
   const calendarApi = calendarRef.current!.getApi();
   const newDate = currentDate.setFullYear(Number(e.target.value));
@@ -64,7 +65,7 @@ export function handleYearChange(
 export function setView(
   calendarRef: calendarRef,
   viewName: string,
-  setCurrentView: any
+  setCurrentView: Dispatch<SetStateAction<string>>
 ) {
   const calendarApi = calendarRef.current!.getApi();
   setCurrentView(viewName);

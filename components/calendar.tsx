@@ -1,15 +1,24 @@
 "use client";
 
+import { useEvents } from "@/context/events-context";
+import "@/styles/calendar.css";
+import {
+  DateSelectArg,
+  DayCellContentArg,
+  DayHeaderContentArg,
+  EventContentArg,
+} from "@fullcalendar/core/index.js";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import multiMonthPlugin from "@fullcalendar/multimonth";
-import listPlugin from "@fullcalendar/list";
 import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import multiMonthPlugin from "@fullcalendar/multimonth";
 import FullCalendar from "@fullcalendar/react";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import { X } from "lucide-react";
 import { useRef, useState } from "react";
 import CalendarNav from "./calendar-nav";
-import "@/styles/calendar.css";
-import { useEvents } from "@/context/events-context";
+import { EventDeleteForm } from "./event-delete-form";
+import { EventEditForm } from "./event-edit-form";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -17,22 +26,30 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { X } from "lucide-react";
-import { EventDeleteForm } from "./event-delete-form";
-import { EventEditForm } from "./event-edit-form";
+
+type EventItemProps = {
+  info: EventContentArg;
+};
+
+type DayHeaderProps = {
+  info: DayHeaderContentArg;
+};
+
+type DayRenderProps = {
+  info: DayCellContentArg;
+};
 
 export default function Calendar() {
-  const { events } = useEvents();
-  const { setEventAddOpen } = useEvents();
+  const { events, setEventAddOpen } = useEvents();
 
   const calendarRef = useRef<FullCalendar | null>(null);
   const [viewedDate, setViewedDate] = useState(new Date());
   const [selectedStart, setSelectedStart] = useState(new Date());
   const [selectedEnd, setSelectedEnd] = useState(new Date());
 
-  const EventItem = ({ info }: any) => {
+  const EventItem = ({ info }: EventItemProps) => {
     const { event } = info;
     const [left, right] = info.timeText.split(" - ");
 
@@ -106,7 +123,7 @@ export default function Calendar() {
     );
   };
 
-  const DayHeader = ({ info }: any) => {
+  const DayHeader = ({ info }: DayHeaderProps) => {
     const [weekday] = info.text.split(" ");
 
     return (
@@ -117,7 +134,7 @@ export default function Calendar() {
               {info.date.toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
-                year: "numeric"
+                year: "numeric",
               })}
             </p>
           </div>
@@ -145,7 +162,7 @@ export default function Calendar() {
     );
   };
 
-  const DayRender = ({ info }: any) => {
+  const DayRender = ({ info }: DayRenderProps) => {
     // const [isHovering, setIsHovering] = useState(false);
 
     return (
@@ -163,7 +180,7 @@ export default function Calendar() {
     );
   };
 
-  const handleDateSelect = (info: any) => {
+  const handleDateSelect = (info: DateSelectArg) => {
     setSelectedStart(info.start);
     setSelectedEnd(info.end);
   };
@@ -186,7 +203,7 @@ export default function Calendar() {
             timeGridPlugin,
             multiMonthPlugin,
             interactionPlugin,
-            listPlugin
+            listPlugin,
           ]}
           initialView="timeGridWeek"
           headerToolbar={false}
@@ -201,12 +218,12 @@ export default function Calendar() {
           slotLabelFormat={{
             hour: "numeric",
             minute: "2-digit",
-            hour12: true
+            hour12: true,
           }}
           eventTimeFormat={{
             hour: "numeric",
             minute: "2-digit",
-            hour12: true
+            hour12: true,
           }}
           eventBorderColor={"black"}
           contentHeight={"auto"}

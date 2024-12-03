@@ -12,7 +12,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
@@ -26,7 +26,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { DateTimePicker } from "./date-picker";
 import { useEvents } from "@/context/events-context";
@@ -42,15 +42,15 @@ const eventEditFormSchema = z.object({
     .min(1, { message: "Must provide a description for this event." }),
   start: z.date({
     required_error: "Please select a start time",
-    invalid_type_error: "That's not a date!"
+    invalid_type_error: "That's not a date!",
   }),
   end: z.date({
     required_error: "Please select an end time",
-    invalid_type_error: "That's not a date!"
+    invalid_type_error: "That's not a date!",
   }),
   color: z
     .string({ required_error: "Please select an event color." })
-    .min(1, { message: "Must provide a title for this event." })
+    .min(1, { message: "Must provide a title for this event." }),
 });
 
 type EventEditFormValues = z.infer<typeof eventEditFormSchema>;
@@ -59,8 +59,8 @@ interface EventEditFormProps {
   id: string;
   title: string;
   description: string;
-  start: Date;
-  end: Date;
+  start: Date | null;
+  end: Date | null;
   color: string;
 }
 
@@ -70,7 +70,7 @@ export function EventEditForm({
   description,
   start,
   end,
-  color
+  color,
 }: EventEditFormProps) {
   const { addEvent, deleteEvent } = useEvents();
   const [eventEditOpen, setEventEditOpen] = useState(false);
@@ -78,17 +78,17 @@ export function EventEditForm({
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof eventEditFormSchema>>({
-    resolver: zodResolver(eventEditFormSchema)
+    resolver: zodResolver(eventEditFormSchema),
   });
 
   useEffect(() => {
     form.reset({
-      id: id,
-      title: title,
-      description: description,
-      start: start,
-      end: end,
-      color: color
+      id,
+      title,
+      description,
+      start: start as Date,
+      end: end as Date,
+      color,
     });
   }, [form, id, title, description, start, end, color]);
 
@@ -99,7 +99,7 @@ export function EventEditForm({
       description: data.description,
       start: data.start,
       end: data.end,
-      color: data.color
+      color: data.color,
     };
     deleteEvent(data.id);
     addEvent(newEvent);
@@ -110,7 +110,7 @@ export function EventEditForm({
         <ToastAction altText={"Click here to dismiss notification"}>
           Dismiss
         </ToastAction>
-      )
+      ),
     });
   }
 

@@ -1,6 +1,6 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
 import { initialEvents } from "@/utils/data";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface Event {
   id: string;
@@ -30,9 +30,15 @@ export const useEvents = () => {
 };
 
 export const EventsProvider: React.FC<{ children: ReactNode }> = ({
-  children
+  children,
 }) => {
-  const [events, setEvents] = useState<any[]>(initialEvents);
+  const [events, setEvents] = useState<Event[]>(
+    initialEvents.map((event) => ({
+      ...event,
+      id: String(event.id),
+      color: event.backgroundColor,
+    }))
+  );
   const [eventAddOpen, setEventAddOpen] = useState(false);
 
   const addEvent = (event: Event) => {
