@@ -12,7 +12,7 @@ import {
   handleDayChange,
   handleMonthChange,
   handleYearChange,
-  setView
+  setView,
 } from "@/utils/calendar-utils";
 import { useState } from "react";
 import {
@@ -22,7 +22,7 @@ import {
   ChevronsUpDown,
   GalleryVertical,
   Table,
-  Tally3
+  Tally3,
 } from "lucide-react";
 import {
   Command,
@@ -30,12 +30,12 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from "@/components/ui/popover";
 
 import { Input } from "@/components/ui/input";
@@ -53,7 +53,7 @@ export default function CalendarNav({
   calendarRef,
   start,
   end,
-  viewedDate
+  viewedDate,
 }: CalendarNavProps) {
   const [currentView, setCurrentView] = useState("timeGridWeek");
 
@@ -68,7 +68,7 @@ export default function CalendarNav({
   const [monthSelectOpen, setMonthSelectOpen] = useState(false);
 
   return (
-    <div className="flex flex-wrap min-w-full justify-center px-4 gap-3 px-10 ">
+    <div className="flex flex-wrap min-w-full justify-center gap-3 px-10 ">
       <div className="flex flex-row space-x-1">
         {/* Navigate to previous date interval */}
 
