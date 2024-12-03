@@ -9,7 +9,6 @@ import FullCalendar from "@fullcalendar/react";
 import { useRef, useState } from "react";
 import CalendarNav from "./calendar-nav";
 import "@/styles/calendar.css";
-import { PlusIcon } from "lucide-react";
 import { useEvents } from "@/context/events-context";
 import {
   AlertDialog,
@@ -43,21 +42,23 @@ export default function Calendar() {
           {info.view.type == "dayGridMonth" ? (
             <div
               style={{ backgroundColor: info.backgroundColor }}
-              className="p-1 flex flex-col space-y-0 overflow-hidden min-h-full min-w-full rounded-md cursor-pointer"
+              className="flex flex-col rounded-md w-full px-1 pb-2 cursor-pointer line-clamp-1"
             >
-              <p className="flex flex-row text-wrap font-semibold text-gray-950">
+              {/* <div className="flex flex-row w-5/6"> */}
+              <p className="font-semibold text-xs text-gray-950 line-clamp-1 w-5/6">
                 {event.title}
               </p>
-              <p className="flex text-gray-800">{left}</p>
-              <p className="flex text-gray-800">{right}</p>
+              {/* </div> */}
+
+              <p className="text-gray-800 text-xs">{left}</p>
+              <p className="text-gray-800 text-xs">{right}</p>
             </div>
           ) : (
             <div className="flex flex-col space-y-0 cursor-pointer">
-              <p className="wrap font-semibold text-xs text-gray-950">
+              <p className="font-semibold w-full text-xs text-gray-950 line-clamp-1">
                 {event.title}
               </p>
-              <p className="flex text-gray-800 text-xs">{`${left} - ${right}`}</p>
-              <p className="flex text-gray-800 text-xs"></p>
+              <p className="text-gray-800 text-xs line-clamp-1">{`${left} - ${right}`}</p>
             </div>
           )}
         </AlertDialogTrigger>
@@ -106,20 +107,34 @@ export default function Calendar() {
   };
 
   const DayHeader = ({ info }: any) => {
-    const [weekday, day] = info.text.split(" ");
-
-    new Date(info.date).toDateString();
+    const [weekday] = info.text.split(" ");
 
     return (
-      <div className="flex h-full items-center overflow-hidden">
+      <div className="flex items-center h-full overflow-hidden">
         {info.view.type == "timeGridDay" ? (
           <div className="flex flex-col rounded-sm">
-            <p>{new Date(info.date).toDateString()}</p>
+            <p>
+              {info.date.toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+              })}
+            </p>
           </div>
         ) : info.view.type == "timeGridWeek" ? (
-          <div className="flex flex-col rounded-sm">
+          <div className="flex flex-col rounded-sm items-center w-full">
             <p className="font-semibold">{weekday}</p>
-            <p className="text-muted-foreground">{day}</p>
+            {info.isToday ? (
+              <div className="flex bg-black dark:bg-white h-6 w-6 rounded-full items-center justify-center">
+                <p className="font-light dark:text-black text-white">
+                  {info.date.getDate()}
+                </p>
+              </div>
+            ) : (
+              <div className="h-6 w-6 rounded-full items-center justify-center">
+                <p className="font-light">{info.date.getDate()}</p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="flex flex-col rounded-sm">
@@ -131,20 +146,18 @@ export default function Calendar() {
   };
 
   const DayRender = ({ info }: any) => {
-    const [isHovering, setIsHovering] = useState(false);
+    // const [isHovering, setIsHovering] = useState(false);
 
     return (
-      <div
-        className="flex w-full h-full"
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        {isHovering ? (
-          <div className="flex w-full h-full justify-center transition-opacity duration-100 ease-in-out opacity-0 hover:opacity-100">
-            <PlusIcon className="h-5 w-5" />
+      <div className="flex">
+        {info.view.type == "dayGridMonth" && info.isToday ? (
+          <div className="flex h-7 w-7 rounded-full bg-black light:bg-white items-center justify-center text-sm text-white light:text-black">
+            {info.dayNumberText}
           </div>
         ) : (
-          info.dayNumberText
+          <div className="flex h-7 w-7 rounded-full items-center justify-center text-sm">
+            {info.dayNumberText}
+          </div>
         )}
       </div>
     );

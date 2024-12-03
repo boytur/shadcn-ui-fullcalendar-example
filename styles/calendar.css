@@ -1,39 +1,31 @@
 /* Creating rounded corners */
 
 .fc-scrollgrid {
-  @apply rounded-xl shadow-md;
+  @apply rounded-xl shadow-md !important;
 }
 
-.fc table {
-  @apply border-separate;
-}
-
-.fc thead th:first-child {
-  @apply rounded-tl-xl;
-}
-
-.fc thead th:last-child {
-  @apply rounded-tr-xl;
+/* .fc thead th:last-child {
+  @apply rounded-tr-xl !important;
 }
 
 .fc tbody tr:last-child td:first-child {
-  @apply rounded-bl-xl;
+  @apply rounded-bl-xl !important;
 }
 
 .fc tbody tr:last-child td:last-child {
-  @apply rounded-br-xl;
-}
+  @apply rounded-br-xl !important;
+} */
 
 /* Setting header size */
 
 .fc-col-header-cell-cushion {
-  @apply h-14;
+  @apply flex h-14 items-center;
 }
 
 /* Setting left time size */
 
 .fc-timegrid-slot-label-cushion {
-  @apply text-sm font-light;
+  @apply text-xs sm:text-sm font-light !important;
 }
 
 /* Setting cell colors */
@@ -46,27 +38,52 @@ td.fc-daygrid-day.fc-day.fc-day-today {
   @apply bg-gray-100;
 }
 
+.fc-day-today {
+  @apply bg-inherit !important;
+}
+
 .fc-day-other {
   background: #fafafb;
 }
 
 /* Styling event box */
 
-.fc-daygrid-day-frame {
-  @apply mx-1 !important;
+.fc-daygrid-day-top {
+  @apply flex flex-row h-8 w-full items-center  !important;
 }
 
-.fc-daygrid-day-number {
-  @apply w-full h-10 !important;
+/* .fc-daygrid-day-frame {
+  @apply ml-0.5 !important;
+} */
+
+.fc-daygrid-event-harness {
+  @apply flex w-full pr-2 !important;
 }
+
+/* .fc-daygrid-day-number {
+  @apply h-6 w-6 !important;
+} */
 
 .fc-event-main {
-  @apply ring-white overflow-hidden w-full pl-1.5 !important;
+  @apply flex w-full !important;
 }
 
 .fc-event {
-  @apply rounded-md border-none w-full !important;
+  @apply flex border-none min-w-full !important;
 }
+
+.fc-daygrid-event {
+  @apply mx-1 !important;
+}
+
+.fc-timegrid-event {
+  @apply px-1 !important;
+}
+
+/* .fc-direction-ltr .fc-daygrid-event.fc-event-start,
+.fc-direction-rtl .fc-daygrid-event.fc-event-end {
+  @apply mx-1 w-full !important;
+} */
 
 /* 
 

@@ -118,7 +118,7 @@ export function EventEditForm({
     <AlertDialog open={eventEditOpen}>
       <AlertDialogTrigger asChild>
         <Button
-          className="w-24 md:w-28 text-xs md:text-sm"
+          className="w-full sm:w-24 text-xs md:text-sm mb-1"
           variant="default"
           onClick={() => setEventEditOpen(true)}
         >

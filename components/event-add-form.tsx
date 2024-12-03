@@ -142,7 +142,7 @@ export function EventAddForm({ start, end }: EventAddFormProps) {
                   <FormControl>
                     <Textarea
                       placeholder="Daily session"
-                      className="resize-none"
+                      className="max-h-36"
                       {...field}
                     />
                   </FormControl>

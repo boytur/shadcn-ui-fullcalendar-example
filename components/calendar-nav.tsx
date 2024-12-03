@@ -68,13 +68,13 @@ export default function CalendarNav({
   const [monthSelectOpen, setMonthSelectOpen] = useState(false);
 
   return (
-    <div className="flex w-full flex-row justify-between">
+    <div className="flex flex-wrap min-w-full justify-center px-4 gap-3 px-10 ">
       <div className="flex flex-row space-x-1">
         {/* Navigate to previous date interval */}
 
         <Button
           variant="ghost"
-          className="w-8 md:w-12"
+          className="w-8"
           onClick={() => {
             goPrev(calendarRef);
           }}
@@ -144,7 +144,7 @@ export default function CalendarNav({
             <Button
               variant="outline"
               role="combobox"
-              className="flex w-28 justify-between overflow-hidden p-2 text-xs font-semibold md:w-36 md:text-sm"
+              className="flex w-[105px] justify-between overflow-hidden p-2 text-xs font-semibold md:text-sm md:w-[120px]"
             >
               {selectedMonth
                 ? months.find((month) => month.value === String(selectedMonth))
@@ -193,7 +193,7 @@ export default function CalendarNav({
         {/* Year Lookup */}
 
         <Input
-          className="w-20 text-xs font-semibold md:w-24 md:text-sm"
+          className="w-[75px] md:w-[85px] text-xs md:text-sm font-semibold"
           type="number"
           value={selectedYear}
           onChange={(value) => handleYearChange(calendarRef, viewedDate, value)}
@@ -203,7 +203,7 @@ export default function CalendarNav({
 
         <Button
           variant="ghost"
-          className="w-8 md:w-12"
+          className="w-8"
           onClick={() => {
             goNext(calendarRef);
           }}
@@ -212,11 +212,11 @@ export default function CalendarNav({
         </Button>
       </div>
 
-      <div className="flex flex-row space-x-2">
+      <div className="flex flex-wrap gap-3 justify-center">
         {/* Button to go to current date */}
 
         <Button
-          className="w-20 md:w-28 text-xs md:text-sm"
+          className="w-[90px] text-xs md:text-sm"
           variant="outline"
           onClick={() => {
             goToday(calendarRef);
@@ -234,7 +234,7 @@ export default function CalendarNav({
         {/* Change view with tabs */}
 
         <Tabs defaultValue="timeGridWeek">
-          <TabsList className="flex w-44 md:w-72">
+          <TabsList className="flex w-44 md:w-64">
             <TabsTrigger
               value="timeGridDay"
               onClick={() =>
