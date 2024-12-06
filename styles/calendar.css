@@ -1,20 +1,20 @@
-/* Creating rounded corners */
+/* Removing borders */
 
 .fc-scrollgrid {
-  @apply rounded-xl shadow-md !important;
-}
-
-/* .fc thead th:last-child {
-  @apply rounded-tr-xl !important;
+  @apply border-none !important;
 }
 
 .fc tbody tr:last-child td:first-child {
-  @apply rounded-bl-xl !important;
+  @apply border-l-0 !important;
 }
 
 .fc tbody tr:last-child td:last-child {
-  @apply rounded-br-xl !important;
-} */
+  @apply border-r-0 border-b-0 !important;
+}
+
+.fc-theme-standard th {
+  @apply border-r-0 !important;
+}
 
 /* Setting header size */
 
@@ -24,8 +24,12 @@
 
 /* Setting left time size */
 
+.fc-timegrid-slot {
+  @apply h-6 !important;
+}
+
 .fc-timegrid-slot-label-cushion {
-  @apply text-xs sm:text-sm font-light !important;
+  @apply text-xs font-light !important;
 }
 
 /* Setting cell colors */
@@ -48,21 +52,21 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 
 /* Styling event box */
 
+/* .fc thead td tr {
+  @apply mx-2 !important;
+} */
+
+/* .fc-daygrid-day {
+  @apply rounded-md !important;
+} */
+
 .fc-daygrid-day-top {
   @apply flex flex-row h-8 w-full items-center  !important;
 }
 
-/* .fc-daygrid-day-frame {
-  @apply ml-0.5 !important;
-} */
-
 .fc-daygrid-event-harness {
   @apply flex w-full pr-2 !important;
 }
-
-/* .fc-daygrid-day-number {
-  @apply h-6 w-6 !important;
-} */
 
 .fc-event-main {
   @apply flex w-full !important;

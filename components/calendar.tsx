@@ -30,6 +30,7 @@ import {
 } from "./ui/alert-dialog";
 import { earliestTime, latestTime } from "@/utils/data";
 import { getDateFromMinutes } from "@/lib/utils";
+import { Card } from "./ui/card";
 
 type EventItemProps = {
   info: EventContentArg;
@@ -57,27 +58,27 @@ export default function Calendar() {
 
     return (
       <AlertDialog>
-        <AlertDialogTrigger asChild>
+        <AlertDialogTrigger asChild className="overflow-hidden">
           {info.view.type == "dayGridMonth" ? (
             <div
               style={{ backgroundColor: info.backgroundColor }}
-              className="flex flex-col rounded-md w-full px-1 pb-2 cursor-pointer line-clamp-1"
+              className="flex flex-col rounded-md w-full p-1 cursor-pointer line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs hover:scale-[1.02] transition-all"
             >
               {/* <div className="flex flex-row w-5/6"> */}
-              <p className="font-semibold text-xs text-gray-950 line-clamp-1 w-5/6">
+              <p className="font-semibold text-gray-950 line-clamp-1 w-11/12">
                 {event.title}
               </p>
               {/* </div> */}
 
-              <p className="text-gray-800 text-xs">{left}</p>
-              <p className="text-gray-800 text-xs">{right}</p>
+              <p className="text-gray-800">{left}</p>
+              <p className="text-gray-800">{right}</p>
             </div>
           ) : (
-            <div className="flex flex-col space-y-0 cursor-pointer">
-              <p className="font-semibold w-full text-xs text-gray-950 line-clamp-1">
+            <div className="flex flex-col space-y-0 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs hover:scale-105 transition-all">
+              <p className="font-semibold w-full text-gray-950 line-clamp-1">
                 {event.title}
               </p>
-              <p className="text-gray-800 text-xs line-clamp-1">{`${left} - ${right}`}</p>
+              <p className="text-gray-800 line-clamp-1">{`${left} - ${right}`}</p>
             </div>
           )}
         </AlertDialogTrigger>
@@ -141,10 +142,10 @@ export default function Calendar() {
             </p>
           </div>
         ) : info.view.type == "timeGridWeek" ? (
-          <div className="flex flex-col rounded-sm items-center w-full">
-            <p className="font-semibold">{weekday}</p>
+          <div className="flex flex-col space-y-0.5 rounded-sm items-center w-full text-xs sm:text-sm md:text-md">
+            <p className="flex font-semibold">{weekday}</p>
             {info.isToday ? (
-              <div className="flex bg-black dark:bg-white h-6 w-6 rounded-full items-center justify-center">
+              <div className="flex bg-black dark:bg-white h-6 w-6 rounded-full items-center justify-center text-xs sm:text-sm md:text-md">
                 <p className="font-light dark:text-black text-white">
                   {info.date.getDate()}
                 </p>
@@ -206,7 +207,7 @@ export default function Calendar() {
   const calendarLatestTime = `${latestHour}:${latestMin}`;
 
   return (
-    <div className="h-full">
+    <div className="space-y-5">
       <CalendarNav
         calendarRef={calendarRef}
         start={selectedStart}
@@ -214,7 +215,7 @@ export default function Calendar() {
         viewedDate={viewedDate}
       />
 
-      <div className="p-5">
+      <Card className="p-3">
         <FullCalendar
           ref={calendarRef}
           timeZone="local"
@@ -257,7 +258,7 @@ export default function Calendar() {
           nowIndicator
           selectable
         />
-      </div>
+      </Card>
     </div>
   );
 }
