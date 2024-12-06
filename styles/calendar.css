@@ -1,3 +1,11 @@
+:root {
+  --fc-border-color: lightgray;
+  --fc-page-bg-color: none;
+}
+.dark {
+  --fc-border-color: gray;
+}
+
 /* Removing borders */
 
 .fc-scrollgrid {
@@ -47,8 +55,12 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 }
 
 .fc-day-other {
-  @apply bg-gray-200 dark:bg-secondary;
+  @apply bg-gray-200 dark:bg-secondary !important;
 }
+
+/* .fc-timegrid-event-harness-inset {
+  @apply shadow-border-none!important;
+} */
 
 /* Styling event box */
 
@@ -64,12 +76,20 @@ td.fc-daygrid-day.fc-day.fc-day-today {
   @apply flex flex-row h-8 w-full items-center  !important;
 }
 
+.fc-daygrid-dot-event {
+  @apply hover:bg-blue-50 !important;
+}
+
 .fc-daygrid-event-harness {
-  @apply flex w-full pr-2 !important;
+  @apply pr-2 hover:bg-none hover:scale-[1.02] transition-all  !important;
+}
+
+.fc-timegrid-event-harness {
+  @apply hover:bg-none hover:scale-105 transition-all !important;
 }
 
 .fc-event-main {
-  @apply flex w-full !important;
+  @apply flex w-full h-full !important;
 }
 
 .fc-event {

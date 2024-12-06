@@ -62,19 +62,17 @@ export default function Calendar() {
           {info.view.type == "dayGridMonth" ? (
             <div
               style={{ backgroundColor: info.backgroundColor }}
-              className="flex flex-col rounded-md w-full p-1 cursor-pointer line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs hover:scale-[1.02] transition-all"
+              className="flex flex-col rounded-md w-full px-2 py-1 cursor-pointer line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs"
             >
-              {/* <div className="flex flex-row w-5/6"> */}
-              <p className="font-semibold text-gray-950 line-clamp-1 w-11/12">
+              <p className="font-semibold text-gray-950 line-clamp-1 w-full">
                 {event.title}
               </p>
-              {/* </div> */}
 
               <p className="text-gray-800">{left}</p>
               <p className="text-gray-800">{right}</p>
             </div>
           ) : (
-            <div className="flex flex-col space-y-0 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs hover:scale-105 transition-all">
+            <div className="flex flex-col space-y-0.5 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs">
               <p className="font-semibold w-full text-gray-950 line-clamp-1">
                 {event.title}
               </p>
