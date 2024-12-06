@@ -41,8 +41,8 @@ export default function Home() {
                 Scheduling Assistant
               </h2>
               <p className="text-xs md:text-sm font-medium">
-                A scheduling assistant built to analyze a user's schedule and
-                automatically show open spots.
+                A scheduling assistant built to analyze a user&apos;s schedule
+                and automatically show open spots.
               </p>
             </div>
             <Separator />

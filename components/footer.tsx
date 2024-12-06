@@ -1,11 +1,5 @@
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import { DarkModeToggle } from "./dark-mode-toggle";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "./ui/separator";
 
 export default function Footer() {
