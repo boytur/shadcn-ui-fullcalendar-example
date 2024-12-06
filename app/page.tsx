@@ -10,7 +10,7 @@ export default function Home() {
       <div className="py-4">
         <Tabs
           defaultValue="calendar"
-          className="flex flex-col w-screen items-center"
+          className="flex flex-col w-full items-center"
         >
           <TabsList className="flex justify-center mb-2">
             <TabsTrigger value="calendar">Calendar</TabsTrigger>
@@ -19,9 +19,16 @@ export default function Home() {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="calendar" className="w-full px-5 space-y-5">
-            <h2 className="flex items-center text-2xl font-semibold tracking-tight md:text-3xl">
-              Calendar
-            </h2>
+            <div className="space-y-0">
+              <h2 className="flex items-center text-2xl font-semibold tracking-tight md:text-3xl">
+                Calendar
+              </h2>
+              <p className="text-xs md:text-sm font-medium">
+                A flexible calendar component built using FullCalendar and
+                shacn/ui.
+              </p>
+            </div>
+
             <Separator />
             <Calendar />
           </TabsContent>
@@ -29,9 +36,15 @@ export default function Home() {
             value="schedulingAssistant"
             className="w-full px-5 space-y-5"
           >
-            <h2 className="flex items-center text-2xl font-semibold tracking-tight md:text-3xl">
-              Scheduling Assistant
-            </h2>
+            <div className="space-y-0">
+              <h2 className="flex items-center text-2xl font-semibold tracking-tight md:text-3xl">
+                Scheduling Assistant
+              </h2>
+              <p className="text-xs md:text-sm font-medium">
+                A scheduling assistant built to analyze a user's schedule and
+                automatically show open spots.
+              </p>
+            </div>
             <Separator />
             <AvailabilityChecker />
           </TabsContent>

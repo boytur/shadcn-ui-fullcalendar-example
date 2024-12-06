@@ -168,7 +168,7 @@ export default function Calendar() {
     return (
       <div className="flex">
         {info.view.type == "dayGridMonth" && info.isToday ? (
-          <div className="flex h-7 w-7 rounded-full bg-black light:bg-white items-center justify-center text-sm text-white light:text-black">
+          <div className="flex h-7 w-7 rounded-full bg-black dark:bg-white items-center justify-center text-sm text-white dark:text-black">
             {info.dayNumberText}
           </div>
         ) : (
@@ -206,7 +206,7 @@ export default function Calendar() {
   const calendarLatestTime = `${latestHour}:${latestMin}`;
 
   return (
-    <>
+    <div className="h-full">
       <CalendarNav
         calendarRef={calendarRef}
         start={selectedStart}
@@ -231,7 +231,7 @@ export default function Calendar() {
           slotMaxTime={calendarLatestTime}
           allDaySlot={false}
           firstDay={1}
-          height={45}
+          height={"32vh"}
           displayEventEnd={true}
           windowResizeDelay={0}
           events={events}
@@ -258,6 +258,6 @@ export default function Calendar() {
           selectable
         />
       </div>
-    </>
+    </div>
   );
 }

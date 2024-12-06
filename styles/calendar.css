@@ -31,11 +31,11 @@
 /* Setting cell colors */
 
 td.fc-daygrid-day.fc-day {
-  @apply hover:bg-gray-200 !important;
+  @apply hover:bg-secondary !important;
 }
 
 td.fc-daygrid-day.fc-day.fc-day-today {
-  @apply bg-gray-100;
+  @apply bg-secondary-foreground;
 }
 
 .fc-day-today {
@@ -43,7 +43,7 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 }
 
 .fc-day-other {
-  background: #fafafb;
+  @apply bg-gray-200 dark:bg-secondary;
 }
 
 /* Styling event box */
