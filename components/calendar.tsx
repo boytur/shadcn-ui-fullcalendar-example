@@ -6,6 +6,8 @@ import {
   DateSelectArg,
   DayCellContentArg,
   DayHeaderContentArg,
+  EventChangeArg,
+  EventClickArg,
   EventContentArg,
 } from "@fullcalendar/core/index.js";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -14,23 +16,24 @@ import listPlugin from "@fullcalendar/list";
 import multiMonthPlugin from "@fullcalendar/multimonth";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { X } from "lucide-react";
+// import { X } from "lucide-react";
 import { useRef, useState } from "react";
 import CalendarNav from "./calendar-nav";
-import { EventDeleteForm } from "./event-delete-form";
-import { EventEditForm } from "./event-edit-form";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { earliestTime, latestTime } from "@/utils/data";
+// import { EventDeleteForm } from "./event-delete-form";
+// import { EventEditForm } from "./event-edit-form";
+// import {
+//   AlertDialog,
+//   AlertDialogCancel,
+//   AlertDialogContent,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogTitle,
+//   AlertDialogTrigger,
+// } from "./ui/alert-dialog";
+import { CalendarEvent, earliestTime, latestTime } from "@/utils/data";
 import { getDateFromMinutes } from "@/lib/utils";
 import { Card } from "./ui/card";
+import { EventEditForm } from "./event-edit-form";
 
 type EventItemProps = {
   info: EventContentArg;
@@ -45,82 +48,88 @@ type DayRenderProps = {
 };
 
 export default function Calendar() {
-  const { events, setEventAddOpen } = useEvents();
+  const { events, setEventAddOpen, setEventEditOpen } = useEvents();
 
   const calendarRef = useRef<FullCalendar | null>(null);
   const [viewedDate, setViewedDate] = useState(new Date());
   const [selectedStart, setSelectedStart] = useState(new Date());
   const [selectedEnd, setSelectedEnd] = useState(new Date());
+  const [selectedOldEvent, setSelectedOldEvent] = useState<
+    CalendarEvent | undefined
+  >();
+  const [selectedEvent, setSelectedEvent] = useState<
+    CalendarEvent | undefined
+  >();
+  const [isDrag, setIsDrag] = useState(false);
+
+  const handleEventClick = (info: EventClickArg) => {
+    const event: CalendarEvent = {
+      id: info.event.id,
+      title: info.event.title,
+      description: info.event.extendedProps.description,
+      backgroundColor: info.event.backgroundColor,
+      start: info.event.start!,
+      end: info.event.end!,
+    };
+
+    setIsDrag(false);
+    setSelectedOldEvent(event);
+    setSelectedEvent(event);
+    setEventEditOpen(true);
+  };
+
+  const handleEventChange = (info: EventChangeArg) => {
+    const event: CalendarEvent = {
+      id: info.event.id,
+      title: info.event.title,
+      description: info.event.extendedProps.description,
+      backgroundColor: info.event.backgroundColor,
+      start: info.event.start!,
+      end: info.event.end!,
+    };
+
+    const oldEvent: CalendarEvent = {
+      id: info.oldEvent.id,
+      title: info.oldEvent.title,
+      description: info.oldEvent.extendedProps.description,
+      backgroundColor: info.oldEvent.backgroundColor,
+      start: info.oldEvent.start!,
+      end: info.oldEvent.end!,
+    };
+
+    setIsDrag(true);
+    setSelectedOldEvent(oldEvent);
+    setSelectedEvent(event);
+    setEventEditOpen(true);
+  };
 
   const EventItem = ({ info }: EventItemProps) => {
     const { event } = info;
     const [left, right] = info.timeText.split(" - ");
 
     return (
-      <AlertDialog>
-        <AlertDialogTrigger asChild className="overflow-hidden">
-          {info.view.type == "dayGridMonth" ? (
-            <div
-              style={{ backgroundColor: info.backgroundColor }}
-              className="flex flex-col rounded-md w-full px-2 py-1 cursor-pointer line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs"
-            >
-              <p className="font-semibold text-gray-950 line-clamp-1 w-11/12">
-                {event.title}
-              </p>
+      <div className="overflow-hidden w-full">
+        {info.view.type == "dayGridMonth" ? (
+          <div
+            style={{ backgroundColor: info.backgroundColor }}
+            className={`flex flex-col rounded-md w-full px-2 py-1 line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs`}
+          >
+            <p className="font-semibold text-gray-950 line-clamp-1 w-11/12">
+              {event.title}
+            </p>
 
-              <p className="text-gray-800">{left}</p>
-              <p className="text-gray-800">{right}</p>
-            </div>
-          ) : (
-            <div className="flex flex-col space-y-0 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs">
-              <p className="font-semibold w-full text-gray-950 line-clamp-1">
-                {event.title}
-              </p>
-              <p className="text-gray-800 line-clamp-1">{`${left} - ${right}`}</p>
-            </div>
-          )}
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex flex-row justify-between items-center">
-              <h1>{event.title}</h1>
-              <AlertDialogCancel>
-                <X className="h-5 w-5" />
-              </AlertDialogCancel>
-            </AlertDialogTitle>
-            <table>
-              <tr>
-                <th>Time:</th>
-                <td>{info.timeText}</td>
-              </tr>
-              <tr>
-                <th>Description:</th>
-                <td>{event.extendedProps.description}</td>
-              </tr>
-              <tr>
-                <th>Color:</th>
-                <td>
-                  <div
-                    className="rounded-full w-5 h-5"
-                    style={{ backgroundColor: info.backgroundColor }}
-                  ></div>
-                </td>
-              </tr>
-            </table>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <EventDeleteForm id={event.id} title={event.title} />
-            <EventEditForm
-              id={event.id}
-              title={event.title}
-              description={event.extendedProps.description}
-              start={event.start}
-              end={event.end}
-              color={info.backgroundColor}
-            />
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            <p className="text-gray-800">{left}</p>
+            <p className="text-gray-800">{right}</p>
+          </div>
+        ) : (
+          <div className="flex flex-col space-y-0 text-[0.5rem] sm:text-[0.6rem] md:text-xs">
+            <p className="font-semibold w-full text-gray-950 line-clamp-1">
+              {event.title}
+            </p>
+            <p className="text-gray-800 line-clamp-1">{`${left} - ${right}`}</p>
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -250,13 +259,22 @@ export default function Calendar() {
           dayCellContent={(dayInfo) => <DayRender info={dayInfo} />}
           eventContent={(eventInfo) => <EventItem info={eventInfo} />}
           dayHeaderContent={(headerInfo) => <DayHeader info={headerInfo} />}
+          eventClick={(eventInfo) => handleEventClick(eventInfo)}
+          eventChange={(eventInfo) => handleEventChange(eventInfo)}
           select={handleDateSelect}
           datesSet={(dates) => setViewedDate(dates.start)}
           dateClick={() => setEventAddOpen(true)}
           nowIndicator
+          editable
           selectable
         />
       </Card>
+      <EventEditForm
+        oldEvent={selectedOldEvent}
+        event={selectedEvent}
+        isDrag={isDrag}
+        // color="red"
+      />
     </div>
   );
 }

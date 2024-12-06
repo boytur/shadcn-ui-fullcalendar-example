@@ -24,8 +24,8 @@ export default function Home() {
                 Calendar
               </h2>
               <p className="text-xs md:text-sm font-medium">
-                A flexible calendar component built using FullCalendar and
-                shacn/ui.
+                A flexible calendar component with drag and drop capabilities
+                built using FullCalendar and shacn/ui.
               </p>
             </div>
 

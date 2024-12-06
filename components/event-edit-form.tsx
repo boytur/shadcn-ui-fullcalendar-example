@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -26,11 +25,11 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { DateTimePicker } from "./date-picker";
 import { useEvents } from "@/context/events-context";
 import { ToastAction } from "./ui/toast";
+import { CalendarEvent } from "@/utils/data";
 
 const eventEditFormSchema = z.object({
   id: z.string(),
@@ -56,24 +55,15 @@ const eventEditFormSchema = z.object({
 type EventEditFormValues = z.infer<typeof eventEditFormSchema>;
 
 interface EventEditFormProps {
-  id: string;
-  title: string;
-  description: string;
-  start: Date | null;
-  end: Date | null;
-  color: string;
+  oldEvent?: CalendarEvent;
+  event?: CalendarEvent;
+  isDrag: boolean;
 }
 
-export function EventEditForm({
-  id,
-  title,
-  description,
-  start,
-  end,
-  color,
-}: EventEditFormProps) {
+export function EventEditForm({ oldEvent, event, isDrag }: EventEditFormProps) {
   const { addEvent, deleteEvent } = useEvents();
-  const [eventEditOpen, setEventEditOpen] = useState(false);
+  const { eventEditOpen, setEventEditOpen } = useEvents();
+  // const [eventEditOpen, setEventEditOpen] = useState(false);
 
   const { toast } = useToast();
 
@@ -81,16 +71,37 @@ export function EventEditForm({
     resolver: zodResolver(eventEditFormSchema),
   });
 
+  const handleEditCancellation = () => {
+    if (isDrag && oldEvent) {
+      const resetEvent = {
+        id: oldEvent.id,
+        title: oldEvent.title,
+        description: oldEvent.description,
+        start: oldEvent.start,
+        end: oldEvent.end,
+        color: oldEvent.backgroundColor!,
+      };
+
+      deleteEvent(oldEvent.id);
+      addEvent(resetEvent);
+    }
+    setEventEditOpen(false);
+  };
+
+  // if (!event) {
+  //   throw new Error("Event must be provided to Event form");
+  // }
+
   useEffect(() => {
     form.reset({
-      id,
-      title,
-      description,
-      start: start as Date,
-      end: end as Date,
-      color,
+      id: event?.id,
+      title: event?.title,
+      description: event?.description,
+      start: event?.start as Date,
+      end: event?.end as Date,
+      color: event?.backgroundColor,
     });
-  }, [form, id, title, description, start, end, color]);
+  }, [form, event]);
 
   async function onSubmit(data: EventEditFormValues) {
     const newEvent = {
@@ -104,6 +115,7 @@ export function EventEditForm({
     deleteEvent(data.id);
     addEvent(newEvent);
     setEventEditOpen(false);
+
     toast({
       title: "Event edited!",
       action: (
@@ -116,18 +128,9 @@ export function EventEditForm({
 
   return (
     <AlertDialog open={eventEditOpen}>
-      <AlertDialogTrigger asChild>
-        <Button
-          className="w-full sm:w-24 text-xs md:text-sm mb-1"
-          variant="default"
-          onClick={() => setEventEditOpen(true)}
-        >
-          Edit Event
-        </Button>
-      </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Edit {title}</AlertDialogTitle>
+          <AlertDialogTitle>Edit {event?.title}</AlertDialogTitle>
         </AlertDialogHeader>
 
         <Form {...form}>
@@ -241,7 +244,7 @@ export function EventEditForm({
               )}
             />
             <AlertDialogFooter className="pt-2">
-              <AlertDialogCancel onClick={() => setEventEditOpen(false)}>
+              <AlertDialogCancel onClick={() => handleEditCancellation()}>
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction type="submit">Save</AlertDialogAction>

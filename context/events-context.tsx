@@ -17,6 +17,8 @@ interface EventsContextType {
   deleteEvent: (id: string) => void;
   eventAddOpen: boolean;
   setEventAddOpen: (value: boolean) => void;
+  eventEditOpen: boolean;
+  setEventEditOpen: (value: boolean) => void;
   availabilityCheckerEventAddOpen: boolean;
   setAvailabilityCheckerEventAddOpen: (value: boolean) => void;
 }
@@ -42,6 +44,7 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     }))
   );
   const [eventAddOpen, setEventAddOpen] = useState(false);
+  const [eventEditOpen, setEventEditOpen] = useState(false);
   const [availabilityCheckerEventAddOpen, setAvailabilityCheckerEventAddOpen] =
     useState(false);
 
@@ -63,6 +66,8 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
         deleteEvent,
         eventAddOpen,
         setEventAddOpen,
+        eventEditOpen,
+        setEventEditOpen,
         availabilityCheckerEventAddOpen,
         setAvailabilityCheckerEventAddOpen,
       }}

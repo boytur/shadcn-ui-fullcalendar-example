@@ -58,20 +58,6 @@ td.fc-daygrid-day.fc-day.fc-day-today {
   @apply bg-gray-200 dark:bg-secondary !important;
 }
 
-/* .fc-timegrid-event-harness-inset {
-  @apply shadow-border-none!important;
-} */
-
-/* Styling event box */
-
-/* .fc thead td tr {
-  @apply mx-2 !important;
-} */
-
-/* .fc-daygrid-day {
-  @apply rounded-md !important;
-} */
-
 .fc-daygrid-day-top {
   @apply flex flex-row h-8 w-full items-center  !important;
 }
@@ -81,11 +67,11 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 }
 
 .fc-daygrid-event-harness {
-  @apply pr-2 hover:bg-none hover:scale-[1.02] transition-all  !important;
+  @apply pr-2 hover:bg-none hover:scale-[1.02] transition-all hover:cursor-pointer  !important;
 }
 
 .fc-timegrid-event-harness {
-  @apply hover:bg-none hover:scale-105 transition-all !important;
+  @apply hover:bg-none hover:cursor-pointer !important;
 }
 
 .fc-event-main {
@@ -103,44 +89,3 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 .fc-timegrid-event {
   @apply px-1 !important;
 }
-
-/* .fc-direction-ltr .fc-daygrid-event.fc-event-start,
-.fc-direction-rtl .fc-daygrid-event.fc-event-end {
-  @apply mx-1 w-full !important;
-} */
-
-/* 
-
-
-
-.element {
-  border-color: black;
-
-  background-color: rgb(174, 198, 228);
-}
-.fc-timegrid-event-harness-inset .fc-timegrid-event,
-.fc-timegrid-event.fc-event-mirror,
-.fc-timegrid-more-link {
-  box-shadow: 0 0 0 5px var(--fc-page-bg-color);
-}
-.fc-timegrid-event-harness > .fc-timegrid-event {
-  inset: 0px;
-
-  position: absolute;
-}
-a.fc-event,
-a.fc-event:hover {
-  text-decoration: none;
-}
-.fc-timegrid-event {
-  margin-bottom: 1px;
-}
-.fc-timegrid-event,
-.fc-timegrid-more-link {
-  border-radius: 3px;
-
-  font-size: var(--fc-small-font-size);
-}
-.fc-v-event {
-  @apply rounded-md px-0.5 border-none !important;
-} */
