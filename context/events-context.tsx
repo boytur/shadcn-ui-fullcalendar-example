@@ -1,5 +1,5 @@
 "use client";
-import { initialEvents } from "@/utils/data";
+import { CalendarEvent, initialEvents } from "@/utils/data";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface Event {
@@ -12,11 +12,13 @@ interface Event {
 }
 
 interface EventsContextType {
-  events: Event[];
+  events: CalendarEvent[];
   addEvent: (event: Event) => void;
   deleteEvent: (id: string) => void;
   eventAddOpen: boolean;
   setEventAddOpen: (value: boolean) => void;
+  availabilityCheckerEventAddOpen: boolean;
+  setAvailabilityCheckerEventAddOpen: (value: boolean) => void;
 }
 
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
@@ -32,7 +34,7 @@ export const useEvents = () => {
 export const EventsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [events, setEvents] = useState<Event[]>(
+  const [events, setEvents] = useState<CalendarEvent[]>(
     initialEvents.map((event) => ({
       ...event,
       id: String(event.id),
@@ -40,8 +42,10 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
     }))
   );
   const [eventAddOpen, setEventAddOpen] = useState(false);
+  const [availabilityCheckerEventAddOpen, setAvailabilityCheckerEventAddOpen] =
+    useState(false);
 
-  const addEvent = (event: Event) => {
+  const addEvent = (event: CalendarEvent) => {
     setEvents((prevEvents) => [...prevEvents, event]);
   };
 
@@ -53,7 +57,15 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <EventsContext.Provider
-      value={{ events, addEvent, deleteEvent, eventAddOpen, setEventAddOpen }}
+      value={{
+        events,
+        addEvent,
+        deleteEvent,
+        eventAddOpen,
+        setEventAddOpen,
+        availabilityCheckerEventAddOpen,
+        setAvailabilityCheckerEventAddOpen,
+      }}
     >
       {children}
     </EventsContext.Provider>

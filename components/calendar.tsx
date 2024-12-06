@@ -28,6 +28,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { earliestTime, latestTime } from "@/utils/data";
+import { getDateFromMinutes } from "@/lib/utils";
 
 type EventItemProps = {
   info: EventContentArg;
@@ -163,8 +165,6 @@ export default function Calendar() {
   };
 
   const DayRender = ({ info }: DayRenderProps) => {
-    // const [isHovering, setIsHovering] = useState(false);
-
     return (
       <div className="flex">
         {info.view.type == "dayGridMonth" && info.isToday ? (
@@ -184,6 +184,26 @@ export default function Calendar() {
     setSelectedStart(info.start);
     setSelectedEnd(info.end);
   };
+
+  const earliestHour = getDateFromMinutes(earliestTime)
+    .getHours()
+    .toString()
+    .padStart(2, "0");
+  const earliestMin = getDateFromMinutes(earliestTime)
+    .getMinutes()
+    .toString()
+    .padStart(2, "0");
+  const latestHour = getDateFromMinutes(latestTime)
+    .getHours()
+    .toString()
+    .padStart(2, "0");
+  const latestMin = getDateFromMinutes(latestTime)
+    .getMinutes()
+    .toString()
+    .padStart(2, "0");
+
+  const calendarEarliestTime = `${earliestHour}:${earliestMin}`;
+  const calendarLatestTime = `${latestHour}:${latestMin}`;
 
   return (
     <>
@@ -207,11 +227,11 @@ export default function Calendar() {
           ]}
           initialView="timeGridWeek"
           headerToolbar={false}
-          slotMinTime={"08:00"}
-          slotMaxTime={"24:00"}
+          slotMinTime={calendarEarliestTime}
+          slotMaxTime={calendarLatestTime}
           allDaySlot={false}
           firstDay={1}
-          height={"75vh"}
+          height={45}
           displayEventEnd={true}
           windowResizeDelay={0}
           events={events}
