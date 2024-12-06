@@ -64,7 +64,7 @@ export default function Calendar() {
               style={{ backgroundColor: info.backgroundColor }}
               className="flex flex-col rounded-md w-full px-2 py-1 cursor-pointer line-clamp-1 text-[0.5rem] sm:text-[0.6rem] md:text-xs"
             >
-              <p className="font-semibold text-gray-950 line-clamp-1 w-full">
+              <p className="font-semibold text-gray-950 line-clamp-1 w-11/12">
                 {event.title}
               </p>
 
@@ -72,7 +72,7 @@ export default function Calendar() {
               <p className="text-gray-800">{right}</p>
             </div>
           ) : (
-            <div className="flex flex-col space-y-0.5 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs">
+            <div className="flex flex-col space-y-0 cursor-pointer text-[0.5rem] sm:text-[0.6rem] md:text-xs">
               <p className="font-semibold w-full text-gray-950 line-clamp-1">
                 {event.title}
               </p>
