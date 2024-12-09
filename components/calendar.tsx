@@ -16,24 +16,14 @@ import listPlugin from "@fullcalendar/list";
 import multiMonthPlugin from "@fullcalendar/multimonth";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-// import { X } from "lucide-react";
+
 import { useRef, useState } from "react";
 import CalendarNav from "./calendar-nav";
-// import { EventDeleteForm } from "./event-delete-form";
-// import { EventEditForm } from "./event-edit-form";
-// import {
-//   AlertDialog,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "./ui/alert-dialog";
 import { CalendarEvent, earliestTime, latestTime } from "@/utils/data";
 import { getDateFromMinutes } from "@/lib/utils";
 import { Card } from "./ui/card";
 import { EventEditForm } from "./event-edit-form";
+import { EventView } from "./event-view";
 
 type EventItemProps = {
   info: EventContentArg;
@@ -48,7 +38,8 @@ type DayRenderProps = {
 };
 
 export default function Calendar() {
-  const { events, setEventAddOpen, setEventEditOpen } = useEvents();
+  const { events, setEventAddOpen, setEventEditOpen, setEventViewOpen } =
+    useEvents();
 
   const calendarRef = useRef<FullCalendar | null>(null);
   const [viewedDate, setViewedDate] = useState(new Date());
@@ -75,7 +66,7 @@ export default function Calendar() {
     setIsDrag(false);
     setSelectedOldEvent(event);
     setSelectedEvent(event);
-    setEventEditOpen(true);
+    setEventViewOpen(true);
   };
 
   const handleEventChange = (info: EventChangeArg) => {
@@ -273,8 +264,9 @@ export default function Calendar() {
         oldEvent={selectedOldEvent}
         event={selectedEvent}
         isDrag={isDrag}
-        // color="red"
+        displayButton={false}
       />
+      <EventView event={selectedEvent} />
     </div>
   );
 }

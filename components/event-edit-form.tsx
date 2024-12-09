@@ -25,11 +25,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { DateTimePicker } from "./date-picker";
 import { useEvents } from "@/context/events-context";
 import { ToastAction } from "./ui/toast";
 import { CalendarEvent } from "@/utils/data";
+import { Button } from "./ui/button";
 
 const eventEditFormSchema = z.object({
   id: z.string(),
@@ -58,12 +60,17 @@ interface EventEditFormProps {
   oldEvent?: CalendarEvent;
   event?: CalendarEvent;
   isDrag: boolean;
+  displayButton: boolean;
 }
 
-export function EventEditForm({ oldEvent, event, isDrag }: EventEditFormProps) {
+export function EventEditForm({
+  oldEvent,
+  event,
+  isDrag,
+  displayButton,
+}: EventEditFormProps) {
   const { addEvent, deleteEvent } = useEvents();
   const { eventEditOpen, setEventEditOpen } = useEvents();
-  // const [eventEditOpen, setEventEditOpen] = useState(false);
 
   const { toast } = useToast();
 
@@ -87,10 +94,6 @@ export function EventEditForm({ oldEvent, event, isDrag }: EventEditFormProps) {
     }
     setEventEditOpen(false);
   };
-
-  // if (!event) {
-  //   throw new Error("Event must be provided to Event form");
-  // }
 
   useEffect(() => {
     form.reset({
@@ -128,6 +131,18 @@ export function EventEditForm({ oldEvent, event, isDrag }: EventEditFormProps) {
 
   return (
     <AlertDialog open={eventEditOpen}>
+      {displayButton && (
+        <AlertDialogTrigger asChild>
+          <Button
+            className="w-full sm:w-24 text-xs md:text-sm mb-1"
+            variant="default"
+            onClick={() => setEventEditOpen(true)}
+          >
+            Edit Event
+          </Button>
+        </AlertDialogTrigger>
+      )}
+
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Edit {event?.title}</AlertDialogTitle>
@@ -135,18 +150,6 @@ export function EventEditForm({ oldEvent, event, isDrag }: EventEditFormProps) {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2.5">
-            {/* <FormField
-              control={form.control}
-              name="id"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <p {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
             <FormField
               control={form.control}
               name="title"

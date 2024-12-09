@@ -10,36 +10,40 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useEvents } from "@/context/events-context";
 import { ToastAction } from "./ui/toast";
 
 interface EventDeleteFormProps {
-  id: string;
-  title: string;
+  id?: string;
+  title?: string;
 }
 
 export function EventDeleteForm({ id, title }: EventDeleteFormProps) {
   const { deleteEvent } = useEvents();
-  // const { eventDeleteOpen, setEventDeleteOpen } = useEvents();
+  const { eventDeleteOpen, setEventDeleteOpen, setEventViewOpen } = useEvents();
 
   const { toast } = useToast();
 
   async function onSubmit() {
-    deleteEvent(id);
+    deleteEvent(id!);
+    setEventDeleteOpen(false);
+    setEventViewOpen(false);
     toast({
       title: "Event deleted!",
       action: (
         <ToastAction altText={"Dismiss notification."}>Dismiss</ToastAction>
-      )
+      ),
     });
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog open={eventDeleteOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete Event</Button>
+        <Button variant="destructive" onClick={() => setEventDeleteOpen(true)}>
+          Delete Event
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -49,7 +53,9 @@ export function EventDeleteForm({ id, title }: EventDeleteFormProps) {
           Are you sure you want to delete this event?
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel onClick={() => setEventDeleteOpen(false)}>
+            Cancel
+          </AlertDialogCancel>
           <Button variant="destructive" onClick={() => onSubmit()}>
             Delete
           </Button>

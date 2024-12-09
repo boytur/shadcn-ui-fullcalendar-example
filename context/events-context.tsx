@@ -15,10 +15,14 @@ interface EventsContextType {
   events: CalendarEvent[];
   addEvent: (event: Event) => void;
   deleteEvent: (id: string) => void;
+  eventViewOpen: boolean;
+  setEventViewOpen: (value: boolean) => void;
   eventAddOpen: boolean;
   setEventAddOpen: (value: boolean) => void;
   eventEditOpen: boolean;
   setEventEditOpen: (value: boolean) => void;
+  eventDeleteOpen: boolean;
+  setEventDeleteOpen: (value: boolean) => void;
   availabilityCheckerEventAddOpen: boolean;
   setAvailabilityCheckerEventAddOpen: (value: boolean) => void;
 }
@@ -43,8 +47,10 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
       color: event.backgroundColor,
     }))
   );
+  const [eventViewOpen, setEventViewOpen] = useState(false);
   const [eventAddOpen, setEventAddOpen] = useState(false);
   const [eventEditOpen, setEventEditOpen] = useState(false);
+  const [eventDeleteOpen, setEventDeleteOpen] = useState(false);
   const [availabilityCheckerEventAddOpen, setAvailabilityCheckerEventAddOpen] =
     useState(false);
 
@@ -64,10 +70,14 @@ export const EventsProvider: React.FC<{ children: ReactNode }> = ({
         events,
         addEvent,
         deleteEvent,
+        eventViewOpen,
+        setEventViewOpen,
         eventAddOpen,
         setEventAddOpen,
         eventEditOpen,
         setEventEditOpen,
+        eventDeleteOpen,
+        setEventDeleteOpen,
         availabilityCheckerEventAddOpen,
         setAvailabilityCheckerEventAddOpen,
       }}
