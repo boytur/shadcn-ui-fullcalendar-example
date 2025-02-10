@@ -89,3 +89,21 @@ td.fc-daygrid-day.fc-day.fc-day-today {
 .fc-timegrid-event {
   @apply px-1 !important;
 }
+
+td.fc-daygrid-day.fc-day {
+  pointer-events: none !important;
+}
+
+.fc-event {
+  pointer-events: all !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+}
+
+.fc-daygrid-event-harness {
+  pointer-events: all !important;
+}
+
+.fc-daygrid-day-top {
+  pointer-events: none !important;
+}
