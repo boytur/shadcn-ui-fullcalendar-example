@@ -253,7 +253,7 @@ export default function Calendar() {
           eventClick={(eventInfo) => handleEventClick(eventInfo)}
           eventChange={(eventInfo) => handleEventChange(eventInfo)}
           select={handleDateSelect}
-          datesSet={(dates) => setViewedDate(dates.start)}
+          datesSet={(dates) => setViewedDate(dates.view.currentStart)}
           dateClick={() => setEventAddOpen(true)}
           nowIndicator
           editable
